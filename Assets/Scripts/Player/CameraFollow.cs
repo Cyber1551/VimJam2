@@ -2,7 +2,7 @@
 using System.Collections;
 using System.Collections.Generic;
 
-namespace Player._Camera
+namespace Player
 {
     public class CameraFollow : MonoBehaviour
     {
@@ -12,7 +12,7 @@ namespace Player._Camera
         public Vector3 offset;
         public Vector3 lookPos;
 
-        private void LateUpdate()
+        private void FixedUpdate()
         {
             Vector3 desiredPosition = target.position + offset;
             Vector3 smoothedPosition = Vector3.Lerp(transform.position, desiredPosition, smoothSpeed);
