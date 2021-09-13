@@ -19,7 +19,8 @@ namespace Player.Control
         [SerializeField] float desiredRotationSpeed = 0.1f;
         [SerializeField] bool blockRotationPlayer;
         [SerializeField] float allowPlayerRotationAmount = 0.3f;
-        
+
+        public GameObject test;
 
         // Start is called before the first frame update
         void Start()
@@ -35,6 +36,11 @@ namespace Player.Control
             if (Input.GetKeyUp(KeyCode.P))
             {
                 _anim.SetBool("Connected", !_anim.GetBool("Connected"));
+            }
+
+            if (Input.GetKeyUp(KeyCode.K))
+            {
+                _anim.SetTrigger("New Trigger");
             }
         }
 
@@ -78,7 +84,12 @@ namespace Player.Control
         }
 
         #region Animation Events
-       
+
+        private void TestEvent()
+        {
+            var go = Instantiate(test, transform.position, Quaternion.identity);
+            Destroy(go, 0.75f);
+        }
         #endregion
     }
 }
