@@ -1,10 +1,12 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 
 namespace Player.Control
 {
     public class PlayerController: MonoBehaviour
     {
         private static readonly int Magnitude = Animator.StringToHash("InputMagnitude");
+        public static PlayerController Instance;
         
         private float _velocity;
         private Animator _anim;
@@ -15,14 +17,22 @@ namespace Player.Control
         
         private float _inputZ;
         private float _inputX;
-        
+
+        public bool canReceiveInput;
+        public bool inputReceived;
+
         [SerializeField] float desiredRotationSpeed = 0.1f;
         [SerializeField] bool blockRotationPlayer;
         [SerializeField] float allowPlayerRotationAmount = 0.3f;
 
         public GameObject test;
+        public GameObject test2;
+        
+        private void Awake()
+        {
+            Instance = this;
+        }
 
-        // Start is called before the first frame update
         void Start()
         {
             _input = InputManager.Instance;
@@ -38,10 +48,7 @@ namespace Player.Control
                 _anim.SetBool("Connected", !_anim.GetBool("Connected"));
             }
 
-            if (Input.GetKeyUp(KeyCode.K))
-            {
-                _anim.SetTrigger("New Trigger");
-            }
+            PlayerCombo();
         }
 
         private void FreeFormMoveAndRotation()
@@ -83,11 +90,29 @@ namespace Player.Control
             }
         }
 
+        private void PlayerCombo()
+        {
+            if (Input.GetMouseButtonDown(0))
+            {
+                if (canReceiveInput)
+                {
+                    inputReceived = true;
+                    canReceiveInput = false;
+                }
+            }
+        }
+        
+
         #region Animation Events
 
         private void TestEvent()
         {
-            var go = Instantiate(test, transform.position, Quaternion.identity);
+            var go = Instantiate(test, transform.position + transform.forward * 1, Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 180f)));
+            Destroy(go, 0.75f);
+        }
+        private void TestEvent2()
+        {
+            var go = Instantiate(test2, transform.position + transform.forward * 1, Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0)));
             Destroy(go, 0.75f);
         }
         #endregion
