@@ -107,12 +107,12 @@ namespace Player.Control
 
         private void TestEvent()
         {
-            var go = Instantiate(test, transform.position + transform.forward * 1, Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 180f)));
+            var go = Instantiate(test, transform.position + transform.forward + Vector3.up, Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 180f)));
             Destroy(go, 0.75f);
         }
         private void TestEvent2()
         {
-            var go = Instantiate(test2, transform.position + transform.forward * 1, Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0)));
+            var go = Instantiate(test2, transform.position + transform.forward + Vector3.up, Quaternion.Euler(new Vector3(0, transform.eulerAngles.y, 0)));
             Destroy(go, 0.75f);
         }
         #endregion
